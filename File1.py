@@ -3,7 +3,7 @@ import random
 s_letter = "abcdefghijklmnopqrstuvwxyz"
 b_letter = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 numbers = "0123456789"
-symbols = "%@\₹&/"
+symbols = "%@\\₹&/"
 
 
 def create_banner():
@@ -19,83 +19,45 @@ def create_banner():
     return banner
 
 
-print(create_banner())
+def type_selection():
+    print(create_banner())
+    passWordS = int(input("Number of passwords: "))
+    print("[1] Only numbers")
+    print("[2] Numbers and letters")
+    print("[3] Numbers, letters, and capital letters")
+    print("[4] Numbers, symbols, letters, and capital letters")
+    X = int(input("Select the option: "))
 
-i = 1
-passWordS = int(input("number of passwords: "))
-print("[1] only numbers: \n[2] numbers and letters: \n[3] numbers, letters and capital letters: \n[4] numbers,symbols, letters and capital letters: ")
-X = int(input("Select the option:"))
-if X == 1:
-    while i <= passWordS:
+    if X not in [1, 2, 3, 4]:
+        print("Invalid option selected... Exiting.")
+        exit()
+
+    if X == 1:
         use = numbers
-        length_for_pass = int(input("custom password length: "))
+    elif X == 2:
+        use = s_letter + numbers
+    elif X == 3:
+        use = b_letter + numbers + s_letter
+    elif X == 4:
+        use = b_letter + numbers + s_letter + symbols
+
+    create_pass(passWordS, use)
+
+
+def create_pass(passWordS, use):
+    File_name = input("Set the file name: ")
+    length_for_pass = int(input(f"Custom password length for password: "))
+    i = 0
+    while i < passWordS:
         password = "".join(random.sample(use, length_for_pass))
-        fo = open("passwordFile.txt", "a")
-        fo.write(password +"\n")
-        fo = open("passwordFile.txt", "r")
-        print(fo.read())
+        # Save each password in a separate file
+        with open(f"{File_name}.txt", "a") as fo:
+            fo.write(password + "\n")
+            print(password)
         i += 1
 
-elif X == 2:
-    while i < passWordS:
-        use = s_letter + numbers
-        lenght_for_pass = int(input("custom password length"))
-        password = "".join(random.sample(use, lenght_for_pass))
-        password2 = "".join(random.sample(use, lenght_for_pass))
-        i = i + 1
-        myPassword = [password]
-        myPassword2 = [password2]
-        fo = open("passwordFile.txt", "w")
-        for each_line in myPassword:
-            fo.writelines([each_line])
-            fo.write("\n")
-        #  for each_line2 in myPassword2:
-        #     fo.writelines([each_line2])
-        #     fo.write("\n")
-        fo = open("passwordFile.txt", "r")
-        print(fo.read())
-        # print(myPassword)
-    fo.close()
-elif X == 3:
-    while i < passWordS:
-        use = b_letter + numbers + s_letter
-        lenght_for_pass = int(input("custom password length"))
-        password = "".join(random.sample(use, lenght_for_pass))
-        password2 = "".join(random.sample(use, lenght_for_pass))
-        i = i + 1
-        myPassword = [password]
-        myPassword2 = [password2]
-        fo = open("passwordFile.txt", "w")
-        for each_line in myPassword:
-            fo.writelines([each_line])
-            fo.write("\n")
-        # for each_line2 in myPassword2:
-        # fo.writelines([each_line2])
-        # fo.write("\n")
-        fo = open("passwordFile.txt", "r")
-        print(fo.read())
-        # print(myPassword)
-    fo.close()
-elif X == 4:
-    while i < passWordS:
-        use = b_letter + numbers + s_letter #+ symbols
-        lenght_for_pass = int(input("custom password length"))
-        password = "".join(random.sample(use, lenght_for_pass))
-        password2 = "".join(random.sample(use, lenght_for_pass))
-        i = i + 1
-        myPassword = [password]
-        myPassword2 = [password2]
-        fo = open("passwordFile.txt", "w")
-        for each_line in myPassword:
-            fo.writelines([each_line])
-            fo.write("\n")
-        #  for each_line2 in myPassword2:
-        #     fo.writelines([each_line2])
-        #    fo.write("\n")
-        fo = open("passwordFile.txt", "r")
-        print(fo.read())
-        # print(myPassword)
-    fo.close()
-else:
-    print("That value is not found....!")
-    print("chikle agene")
+
+if __name__ == "__main__":
+    type_selection()
+    print("Password generation completed...")
+    exit()
