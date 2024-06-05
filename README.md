@@ -26,3 +26,4 @@ Custom password length for password: 8
 Password generation completed...
 
 Process finished with exit code 0
+
