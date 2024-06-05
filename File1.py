@@ -3,7 +3,7 @@ import random
 s_letter = "abcdefghijklmnopqrstuvwxyz"
 b_letter = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 numbers = "0123456789"
-symbols = "%@\\₹&/"
+symbols = "%@!&"
 
 
 def create_banner():
@@ -49,7 +49,7 @@ def create_pass(passWordS, use):
     length_for_pass = int(input(f"Custom password length for password: "))
     i = 0
     while i < passWordS:
-        password = "".join(random.sample(use, length_for_pass))
+        password = "".join(random.choices(use, k=length_for_pass))
         # Save each password in a separate file
         with open(f"{File_name}.txt", "a") as fo:
             fo.write(password + "\n")
